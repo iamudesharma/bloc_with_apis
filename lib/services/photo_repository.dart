@@ -3,10 +3,10 @@ import 'package:flutter/rendering.dart';
 
 import '../model/photo_model.dart';
 
-class PhotoService {
+class PhotoRepository {
   final Dio? dio;
 
-  PhotoService(this.dio);
+  PhotoRepository(this.dio);
 
   Future<List<PhotoModel>> getPhotos() async {
     try {

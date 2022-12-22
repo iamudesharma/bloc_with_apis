@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:test_upwork/app/photos/bloc/photos_bloc.dart';
 import 'package:test_upwork/model/photo_model.dart';
-import 'package:test_upwork/services/photo_services.dart';
+import 'package:test_upwork/services/photo_repository.dart';
 
 class PhotoView extends StatefulWidget {
   const PhotoView({super.key});
@@ -24,7 +24,7 @@ class _PhotoViewState extends State<PhotoView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          PhotosBloc(RepositoryProvider.of<PhotoService>(context))
+          PhotosBloc(RepositoryProvider.of<PhotoRepository>(context))
             ..add(GetPhotosList()),
       child: Scaffold(
         appBar: AppBar(

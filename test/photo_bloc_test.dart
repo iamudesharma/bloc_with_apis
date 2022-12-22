@@ -11,7 +11,7 @@ import 'package:http_mock_adapter/http_mock_adapter.dart';
 
 import 'package:test_upwork/app/photos/bloc/photos_bloc.dart';
 import 'package:test_upwork/model/photo_model.dart';
-import 'package:test_upwork/services/photo_services.dart';
+import 'package:test_upwork/services/photo_repository.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,11 +39,11 @@ void main() {
       'When data is empty',
       setUp: (() {
         return dioAdapter.onGet(
-          "",
+          PhotosUrl,
           (request) => request.reply(200, []),
         );
       }),
-      build: () => PhotosBloc(PhotoService(dio)),
+      build: () => PhotosBloc(PhotoRepository(dio)),
       wait: const Duration(milliseconds: 500),
       expect: () => [PhotosLoading(), PhotosLoaded(const [])],
     );
@@ -56,7 +56,7 @@ void main() {
           (request) => request.reply(200, _data),
         );
       }),
-      build: () => PhotosBloc(PhotoService(dio)),
+      build: () => PhotosBloc(PhotoRepository(dio)),
       wait: const Duration(milliseconds: 500),
       expect: () => [
         PhotosLoading(),
@@ -91,7 +91,7 @@ void main() {
           (request) => request.reply(200, null),
         );
       }),
-      build: () => PhotosBloc(PhotoService(dio)),
+      build: () => PhotosBloc(PhotoRepository(dio)),
       wait: const Duration(milliseconds: 500),
       expect: () => [PhotosLoading(), PhotosError('unknown error')],
     );
